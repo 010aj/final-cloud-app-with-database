@@ -54,9 +54,7 @@
             <!-- <HINT> Use Bootstrap Collapse to hide exam first, more details could be found here
             https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
 
-            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Start Exam</button>
-            <div id="exam" class="collapse">
-            
+
                 
 
             
@@ -73,14 +71,19 @@
             <input type="check" name="choice_{{choice.id}}" id="{{choice.id}}" ...>
             -->
 
-            <!-- A choice submission form example
-            <form id="questionform" action="point to a submit view" method="post">
-                        ... for each question in the course ...
+            <!-- A choice submission form example -->
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Start Exam</button>
+            <div id="exam" class="collapse">
+                {% if user.is_authenticated %}
+                <form id="questionform" action="point to a submit view" method="post">
+                        {% for question in course.question_set.all %}
+                        <!-- ... for each question in the course ... -->
                         <div class="card mt-1">
                             <div class="card-header"><h5>{{ question.question_text}}</h5></div>
                             {% csrf_token %}
                             <div class="form-group">
-                               ... for each choice in the question ...
+                                {% for choice in question.choice_set.all %}
+                               <!-- ... for each choice in the question ... -->
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input type="checkbox" name="choice_{{choice.id}}"
@@ -91,7 +94,7 @@
                             </div>
                         </div>
                     <input class="btn btn-success btn-block" type="submit" value="Submit">
-            </form> -->
+            </form> 
             </div>
             <!--Check here to see more details Bootstrap checkbox
              https://www.w3schools.com/bootstrap4/bootstrap_forms_inputs.asp-->
